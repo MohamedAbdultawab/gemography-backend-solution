@@ -1,6 +1,6 @@
 import requests
 from datetime import date, timedelta
-from collections import OrderedDict, defaultdict
+from collections import defaultdict
 
 
 def get_repos():
@@ -35,19 +35,20 @@ def create_languages_dict(repos):
         language["repos_count"] += 1
         language["repos"].append(repo["html_url"])
 
-    return OrderedDict(
-        (k, v)
+    return [
+        {k: v}
         for k, v in sorted(
             languages.items(), key=lambda item: item[1]["repos_count"], reverse=True
         )
-    )
+    ]
 
 
 def get_languages():
     """A utility to call helper methods to get repos and extract language information.
 
     Returns:
-        dict: Each key represent a language, and its value contains language related info\
+        List[dict]: List of dictionaries, in which each key represent a language, and its value contains language related info\
             `repos_count` and `repos`.
     """
-    return create_languages_dict(get_repos())
+    data = create_languages_dict(get_repos())
+    return {"totalItems": len(data), "items": data}
