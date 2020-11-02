@@ -26,7 +26,7 @@ def create_languages_dict(repos):
 
     Returns:
         dict: Each key represent a language, and its value contains language related info\
-            `repos_count` and `repos`.
+            `language_name`, `repos_count` and `repos`.
     """
     languages = defaultdict(lambda: {"repos_count": 0, "repos": list()})
 
@@ -36,7 +36,7 @@ def create_languages_dict(repos):
         language["repos"].append(repo["html_url"])
 
     return [
-        {k: v}
+        {"language_name": k, **v}
         for k, v in sorted(
             languages.items(), key=lambda item: item[1]["repos_count"], reverse=True
         )
