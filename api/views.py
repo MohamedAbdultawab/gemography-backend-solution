@@ -3,7 +3,7 @@ from django.http.response import HttpResponseNotFound, HttpResponseServerError
 from .utils import get_languages
 
 # Create your views here.
-def list_100_languages(request):
+def list_trending_languages(request):
     """API endpoint to list the languages used by the 100 trending public repos on GitHub.
 
     Args:
